@@ -137,23 +137,23 @@ describe "String#to_regexp" do
 
   # https://github.com/ruby/ruby/blob/trunk/test/ruby/test_regexp.rb#L474 "test_union2"
   it "tests union of regular expressions in MRI" do
-    assert_equal(/(?!)/, Regexp.union)
-    assert_equal(/foo/, Regexp.union(/foo/))
-    assert_equal(/foo/, Regexp.union([/foo/]))
-    assert_equal(/\t/, Regexp.union("\t"))
-    assert_equal(/(?-mix:\u3042)|(?-mix:\u3042)/, Regexp.union(/\u3042/, /\u3042/))
-    assert_equal("\u3041", "\u3041"[Regexp.union(/\u3042/, "\u3041")])
+    assert_equal (/(?!)/), Regexp.union
+    assert_equal (/foo/), Regexp.union(/foo/)
+    assert_equal (/foo/), Regexp.union([/foo/])
+    assert_equal (/\t/), Regexp.union("\t")
+    assert_equal (/(?-mix:\u3042)|(?-mix:\u3042)/), Regexp.union(/\u3042/, /\u3042/)
+    assert_equal "\u3041", "\u3041"[Regexp.union(/\u3042/, "\u3041")]
   end
 
   # https://github.com/ruby/ruby/blob/trunk/test/ruby/test_regexp.rb#L464 "test_try_convert"
   it "tries to convert string to regular expression in MRI" do
-    assert_equal(/re/, Regexp.try_convert(/re/))
-    assert_nil(Regexp.try_convert("re"))
+    assert_equal (/re/), Regexp.try_convert(/re/)
+    assert_nil Regexp.try_convert("re")
 
     o = Object.new
-    assert_nil(Regexp.try_convert(o))
+    assert_nil Regexp.try_convert(o)
     def o.to_regexp() /foo/ end
-    assert_equal(/foo/, Regexp.try_convert(o))
+    assert_equal (/foo/), Regexp.try_convert(o)
   end
 
   # https://github.com/jruby/jruby/blob/master/spec/ruby/core/regexp/try_convert_spec.rb#L5
