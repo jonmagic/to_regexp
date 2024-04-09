@@ -5,7 +5,7 @@ module ToRegexp
       self
     end
   end
-  
+
   module String
     class << self
       def literal?(str)
@@ -21,7 +21,7 @@ module ToRegexp
 
     # Get a regexp back
     #
-    # Without :literal or :detect, `"foo".to_regexp` will return nil. 
+    # Without :literal or :detect, `"foo".to_regexp` will return nil.
     #
     # @param [optional, Hash] options
     # @option options [true,false] :literal Treat meta characters and other regexp codes as just text; always return a regexp
@@ -65,7 +65,7 @@ module ToRegexp
       else
         return
       end
-      
+
       ignore_case = options[:ignore_case] ? ::Regexp::IGNORECASE : 0
       multiline = options[:multiline] ? ::Regexp::MULTILINE : 0
       extended = options[:extended] ? ::Regexp::EXTENDED : 0
@@ -73,7 +73,7 @@ module ToRegexp
       if ::RUBY_VERSION > '1.9' and lang.include?('u')
         lang = lang.delete 'u'
       end
-      
+
       if lang.empty?
         [ content, (ignore_case|multiline|extended) ]
       else
