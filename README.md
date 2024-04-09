@@ -38,4 +38,8 @@ Finally, you can be more lazy using <tt>:detect</tt>:
 'foo\b/'.to_regexp(detect: true)  #=> %r{foo\\b/}
 ```
 
+## Contributors
+- [@seamusabshere](https://github.com/seamusabshere)
+- [@jonmagic](https://github.com/jonmagic)
+
 Copyright 2012 Seamus Abshere
