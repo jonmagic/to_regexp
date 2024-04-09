@@ -65,7 +65,7 @@ describe "String#to_regexp" do
 
   it "converts string to regular expression with as_regexp method" do
     str = '/finalis(é)/in'
-    assert_equal ['finalis(é)', ::Regexp::IGNORECASE, 'n'], str.as_regexp
+    assert_equal ['finalis(é)', ::Regexp::IGNORECASE], str.as_regexp
     assert_equal Regexp.new(*str.as_regexp), str.to_regexp
   end
 

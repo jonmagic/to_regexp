@@ -59,8 +59,6 @@ module ToRegexp
           options[:ignore_case] = true if inline_options.include?('i')
           options[:multiline] = true if inline_options.include?('m')
           options[:extended] = true if inline_options.include?('x')
-          # 'n', 'N' = none, 'e', 'E' = EUC, 's', 'S' = SJIS, 'u', 'U' = UTF-8
-          options[:lang] = inline_options.scan(/[nesu]/i).join.downcase
         end
       else
         return
@@ -69,19 +67,11 @@ module ToRegexp
       ignore_case = options[:ignore_case] ? ::Regexp::IGNORECASE : 0
       multiline = options[:multiline] ? ::Regexp::MULTILINE : 0
       extended = options[:extended] ? ::Regexp::EXTENDED : 0
-      lang = options[:lang] || ''
-      if ::RUBY_VERSION > '1.9' and lang.include?('u')
-        lang = lang.delete 'u'
-      end
 
-      if lang.empty?
-        [ content, (ignore_case|multiline|extended) ]
-      else
-        [ content, (ignore_case|multiline|extended), lang ]
-      end
+      options_flag = ignore_case | multiline | extended
+      [content, options_flag]
     end
   end
-
 end
 
 ::String.send :include, ::ToRegexp::String
