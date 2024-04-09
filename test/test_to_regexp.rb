@@ -21,12 +21,12 @@ describe "String#to_regexp" do
   end
 
   it "test_002_multiline" do
-    assert_equal nil, '/foo.*(bar)/'.to_regexp.match("foo\n\nbar")
+    assert_nil '/foo.*(bar)/'.to_regexp.match("foo\n\nbar")
     assert_equal 'bar', '/foo.*(bar)/m'.to_regexp.match("foo\n\nbar").captures[0]
   end
 
   it "test_003_ignore_case" do
-    assert_equal nil, '/(FOO)/'.to_regexp.match('foo')
+    assert_nil '/(FOO)/'.to_regexp.match('foo')
     assert_equal 'foo', '/(FOO)/i'.to_regexp.match('foo').captures[0]
   end
 
@@ -70,7 +70,7 @@ describe "String#to_regexp" do
   end
 
   it "test_009_ruby_19_splat" do
-    assert_equal nil, 'hi'.to_regexp
+    assert_nil 'hi'.to_regexp
   end
 
   it "test_010_regexp_to_regexp" do
@@ -79,8 +79,8 @@ describe "String#to_regexp" do
   end
 
   it "test_011_ignore_case_option" do
-    assert_equal nil, '/(FOO)/'.to_regexp(:ignore_case => false).match('foo')
-    assert_equal nil, '/(FOO)/'.to_regexp(:ignore_case => false).match('foo')
+    assert_nil '/(FOO)/'.to_regexp(:ignore_case => false).match('foo')
+    assert_nil '/(FOO)/'.to_regexp(:ignore_case => false).match('foo')
     assert_equal 'foo', '/(FOO)/'.to_regexp(:ignore_case => true).match('foo').captures[0]
     assert_equal 'foo', '/(FOO)/i'.to_regexp(:ignore_case => true).match('foo').captures[0]
   end
@@ -93,7 +93,7 @@ describe "String#to_regexp" do
     assert '/(FOO)/'.to_regexp(:literal => true, :ignore_case => true).match('hello/(foo)/there')
 
     # can't use inline options obviously
-    assert_equal nil, '/(FOO)/i'.to_regexp(:literal => true).match('hello/(foo)/there')
+    assert_nil '/(FOO)/i'.to_regexp(:literal => true).match('hello/(foo)/there')
     assert '/(FOO)/i'.to_regexp(:literal => true).match('hello/(FOO)/ithere')
   end
 
@@ -124,7 +124,7 @@ describe "String#to_regexp" do
   end
 
   it "test_016_detect" do
-    assert_equal nil, ''.to_regexp(:detect => true)
+    assert_nil ''.to_regexp(:detect => true)
     assert_equal //, '//'.to_regexp(:detect => true)
     assert_equal /foo/, 'foo'.to_regexp(:detect => true)
     assert_equal %r{foo\\b}, 'foo\b'.to_regexp(:detect => true)
@@ -164,7 +164,7 @@ describe "String#to_regexp" do
   # https://github.com/jruby/jruby/blob/master/spec/ruby/core/regexp/try_convert_spec.rb#L9
   it "test_jruby_returns_nil_if_given_arg_cant_be_converted" do
     ['', 'glark', [], Object.new, :pat].each do |arg|
-      assert_equal nil, Regexp.try_convert(arg)
+      assert_nil Regexp.try_convert(arg)
     end
   end
 
@@ -176,10 +176,10 @@ describe "String#to_regexp" do
     assert_equal 'http://', 'x http:// x'.slice(URI.regexp)
     assert_equal 'http://', 'x http:// x'.slice(URI.regexp(['http']))
     assert_equal 'http://', 'x http:// x ftp://'.slice(URI.regexp(['http']))
-    assert_equal nil, 'http://'.slice(URI.regexp([]))
-    assert_equal nil, ''.slice(URI.regexp)
-    assert_equal nil, 'xxxx'.slice(URI.regexp)
-    assert_equal nil, ':'.slice(URI.regexp)
+    assert_nil 'http://'.slice(URI.regexp([]))
+    assert_nil ''.slice(URI.regexp)
+    assert_nil 'xxxx'.slice(URI.regexp)
+    assert_nil ':'.slice(URI.regexp)
     assert_equal 'From:', 'From:'.slice(URI.regexp)
   end
 
