@@ -99,8 +99,8 @@ describe "String#to_regexp" do
 
   it "tries to convert string to regular expression" do
     if RUBY_VERSION >= '1.9'
-      assert_equal /foo/i, Regexp.try_convert('/foo/i')
-      assert_equal //, Regexp.try_convert('//')
+      assert_equal (/foo/i), Regexp.try_convert('/foo/i')
+      assert_equal (//), Regexp.try_convert('//')
     end
   end
 
@@ -114,25 +114,25 @@ describe "String#to_regexp" do
     "/"
   ]
   it "tests union of regular expressions" do
-    assert_equal /penzance/, Regexp.union('penzance')
-    assert_equal /skiing|sledding/, Regexp.union('skiing', 'sledding')
-    assert_equal /skiing|sledding/, Regexp.union(['skiing', 'sledding'])
-    assert_equal /(?-mix:dogs)|(?i-mx:cats)/, Regexp.union(/dogs/, /cats/i)
-    assert_equal /(?-mix:dogs)|(?i-mx:cats)/, Regexp.union('/dogs/', /cats/i)
-    assert_equal /(?-mix:dogs)|(?i-mx:cats)/, Regexp.union(/dogs/, '/cats/i')
+    assert_equal (/penzance/), Regexp.union('penzance')
+    assert_equal (/skiing|sledding/), Regexp.union('skiing', 'sledding')
+    assert_equal (/skiing|sledding/), Regexp.union(['skiing', 'sledding'])
+    assert_equal (/(?-mix:dogs)|(?i-mx:cats)/), Regexp.union(/dogs/, /cats/i)
+    assert_equal (/(?-mix:dogs)|(?i-mx:cats)/), Regexp.union('/dogs/', /cats/i)
+    assert_equal (/(?-mix:dogs)|(?i-mx:cats)/), Regexp.union(/dogs/, '/cats/i')
     assert_equal %r{&|<|>|'|"|\/}.inspect, Regexp.union(*ESCAPE_HTML_KEYS).inspect
   end
 
   it "detects regular expression in a string" do
     assert_nil ''.to_regexp(:detect => true)
-    assert_equal //, '//'.to_regexp(:detect => true)
-    assert_equal /foo/, 'foo'.to_regexp(:detect => true)
+    assert_equal (//), '//'.to_regexp(:detect => true)
+    assert_equal (/foo/), 'foo'.to_regexp(:detect => true)
     assert_equal %r{foo\\b}, 'foo\b'.to_regexp(:detect => true)
     assert_equal %r{foo\b}, '/foo\b/'.to_regexp(:detect => true)
     assert_equal %r{foo\\b/}, 'foo\b/'.to_regexp(:detect => true)
     assert_equal %r{foo\b}i, '/foo\b/i'.to_regexp(:detect => true)
     assert_equal %r{foo\\b/i}, 'foo\b/i'.to_regexp(:detect => true)
-    assert_equal /FOO.*(BAR)/mi, '/FOO.*(BAR)/mi'.to_regexp(:detect => true)
+    assert_equal (/FOO.*(BAR)/mi), '/FOO.*(BAR)/mi'.to_regexp(:detect => true)
   end
 
   # https://github.com/ruby/ruby/blob/trunk/test/ruby/test_regexp.rb#L474 "test_union2"
@@ -158,7 +158,7 @@ describe "String#to_regexp" do
 
   # https://github.com/jruby/jruby/blob/master/spec/ruby/core/regexp/try_convert_spec.rb#L5
   it "returns argument if given regular expression in JRuby" do
-    assert_equal /foo/s, Regexp.try_convert(/foo/s)
+    assert_equal (/foo/s), Regexp.try_convert(/foo/s)
   end
 
   # https://github.com/jruby/jruby/blob/master/spec/ruby/core/regexp/try_convert_spec.rb#L9
@@ -170,6 +170,6 @@ describe "String#to_regexp" do
 
   # https://github.com/jruby/jruby/blob/master/spec/ruby/core/regexp/union_spec.rb#L14
   it "quotes string arguments in JRuby" do
-    assert_equal /n|\./, Regexp.union("n", ".")
+    assert_equal (/n|\./), Regexp.union("n", ".")
   end
 end
