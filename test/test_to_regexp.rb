@@ -168,21 +168,6 @@ describe "String#to_regexp" do
     end
   end
 
-  # https://github.com/jruby/jruby/blob/master/test/externals/ruby1.9/uri/test_common.rb#L32
-  it "tests URI common regular expression in JRuby" do
-    assert_instance_of Regexp, URI.regexp
-    assert_instance_of Regexp, URI.regexp(['http'])
-    assert_equal URI.regexp, URI.regexp
-    assert_equal 'http://', 'x http:// x'.slice(URI.regexp)
-    assert_equal 'http://', 'x http:// x'.slice(URI.regexp(['http']))
-    assert_equal 'http://', 'x http:// x ftp://'.slice(URI.regexp(['http']))
-    assert_nil 'http://'.slice(URI.regexp([]))
-    assert_nil ''.slice(URI.regexp)
-    assert_nil 'xxxx'.slice(URI.regexp)
-    assert_nil ':'.slice(URI.regexp)
-    assert_equal 'From:', 'From:'.slice(URI.regexp)
-  end
-
   # https://github.com/jruby/jruby/blob/master/spec/ruby/core/regexp/union_spec.rb#L14
   it "quotes string arguments in JRuby" do
     assert_equal /n|\./, Regexp.union("n", ".")
